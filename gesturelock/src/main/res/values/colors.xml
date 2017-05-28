@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="system_title">#6C23CC</color>
+    <color name="main_color">#0066FF</color>
+    <!-- 字体颜色 -->
+    <color name="white">#ffffff</color>
+    <!-- 字体颜色 -->
+    <color name="black">#333333</color>
+    <color name="grey">#AEAEAE</color>
+    <!--标题栏字体颜色-->
+    <color name="title_text_color">#FFFFFF</color>
+    <!--首页底部菜单文字颜色-->
+    <color name="index_text2_color">#0066ff</color>
+    <color name="index_text_color">#333333</color>
+    <color name="index_text3_color">#0069FF</color>
+    <!--透明颜色值#00000000-->
+    <color name="null_bg">#00000000</color>
+    //半透明
+    <color name="null_bg2">#e0000000</color>
+
+    <!--票据大厅-->
+    <!--票据标题的颜色-->
+    <color name="item_bill">#6FA8FF</color>
+    <!--票据金额的颜色-->
+    <color name="bill_text">#FFB400</color>
+    <!--分割线颜色-->
+    <color name="divider_mall">#419BF9</color>
+
+    <!-- 主题色 -->
+    <color name="theme_blue">#0066ff</color>
+    <!-- 主题暗色 -->
+    <color name="theme_black">#515151</color>
+    <!-- 字体颜色 -->
+    <color name="text_gray">#999999</color>
+    <!--浅灰色-->
+    <color name="text_light_grey">#8F8F8F</color>
+    <!--浅绿-->
+    <color name="text_light_green">#7FB42F</color>
+    <color name="transparent">#00000000</color>
+    <color name="line_color">#CCCCCC</color>
+    <color name="common_bg">#f2f2f2</color>
+    <color name="dot_yellow">#FFB400</color>
+    <!--红色-->
+    <color name="red">#F22323</color>
+
+    <!--购物车-->
+    <color name="cart_text">#AAAAAA</color>
+    <color name="dark_grey">#777777</color>
+    <color name="background_tab_pressed">#FF3B30</color>
+
+    <!--地址选择-->
+    <color name="tv_address_default">#7CA3F6</color>
+
+    <!--H5-->
+    <color name="image_pick_title_btn_pressed">#f4f4f4</color>
+    <color name="image_pick_title_btn_normal">#00000000</color>
+    <color name="photo_bg">#56A6DF</color>
+
+    <!--手势密码-->
+    <color name="wrong">#FFA70E</color>
+</resources>
