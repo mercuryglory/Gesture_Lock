@@ -1,4 +1,4 @@
-package com.mercury.gesturetest.common;
+package com.mercury.gesturelock.common;
 
 import android.content.Context;
 import android.view.WindowManager;

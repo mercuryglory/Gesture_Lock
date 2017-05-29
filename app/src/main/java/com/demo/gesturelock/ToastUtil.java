@@ -1,4 +1,4 @@
-package com.mercury.gesturetest;
+package com.demo.gesturelock;
 
 import android.content.Context;
 import android.widget.Toast;

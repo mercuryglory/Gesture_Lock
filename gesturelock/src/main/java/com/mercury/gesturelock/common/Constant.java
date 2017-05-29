@@ -1,4 +1,4 @@
-package com.mercury.gesturetest.common;
+package com.mercury.gesturelock.common;
 
 public class Constant {
 	public static final int POINT_STATE_NORMAL = 0; // 正常状态

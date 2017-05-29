@@ -1,10 +1,11 @@
-package com.mercury.gesturetest.entity;
+package com.mercury.gesturelock.entity;
 
 
 import android.widget.ImageView;
 
-import com.mercury.gesturetest.R;
-import com.mercury.gesturetest.common.Constant;
+import com.mercury.gesturelock.R;
+import com.mercury.gesturelock.common.Constant;
+
 
 
 public class GesturePoint {

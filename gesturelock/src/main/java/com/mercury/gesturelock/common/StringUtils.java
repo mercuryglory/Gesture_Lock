@@ -1,4 +1,4 @@
-package com.mercury.gesturetest;
+package com.mercury.gesturelock.common;
 
 /**
  * 创建者:    Mercury
