@@ -1,4 +1,4 @@
-package com.mercury.gesturetest.widget;
+package com.mercury.gesturelock.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,15 +13,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mercury.gesturetest.StringUtils;
-import com.mercury.gesturetest.common.AppUtil;
+import com.mercury.gesturelock.common.AppUtil;
+import com.mercury.gesturelock.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mercury.gesturetest.widget.GestureView.Mode.POINT_STATE_SELECTED;
+import static com.mercury.gesturelock.widget.GestureView.Mode.POINT_STATE_SELECTED;
 
 
 /**
@@ -41,25 +41,25 @@ public class GestureContentView extends ViewGroup {
      * @param callBack
      * 手势绘制完毕的回调
      */
-    private int[]                          screenDispaly;
+    private int[]                                            screenDispaly;
     // 将屏幕宽度分成3份
-    private int                            blockWidth;
+    private int                                              blockWidth;
     // 9个点位的集合
     private List<GestureView> list;
 
     // 是否需要校验密码
-    private boolean isVerify;
-    private Context context;
+    private boolean                                                                                            isVerify;
+    private Context                                                                                            context;
     //校验密码
     /**
      * 构造函数
      */
-    private Paint                                  paint;// 声明画笔
-    private Canvas                                 canvas;// 画布
-    private Bitmap                                 bitmap;// 位图
-    private List<Pair<GestureView, GestureView>>   lineList;// 记录画过的线
-    private StringBuilder                          passWordSb;
-    private GestureCallBack        callBack;
+    private Paint                                                                                              paint;// 声明画笔
+    private Canvas                                                                                             canvas;// 画布
+    private Bitmap                                                                                             bitmap;// 位图
+    private List<Pair<GestureView, GestureView>> lineList;// 记录画过的线
+    private StringBuilder                                                                                      passWordSb;
+    private GestureCallBack                                                                                    callBack;
 
     //    private boolean                                isVerify;
     private String passWord = "12369";
@@ -342,7 +342,7 @@ public class GestureContentView extends ViewGroup {
      * @return
      */
     private GestureView getBetweenCheckPoint(GestureView pointStart,
-                                              GestureView pointEnd) {
+                                                                            GestureView pointEnd) {
         int startNum = pointStart.getNum();
         int endNum = pointEnd.getNum();
         String key;

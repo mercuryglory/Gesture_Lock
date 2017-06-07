@@ -1,4 +1,4 @@
-package com.mercury.gesturetest.widget;
+package com.mercury.gesturelock.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,10 +12,10 @@ import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.mercury.gesturetest.StringUtils;
-import com.mercury.gesturetest.common.AppUtil;
-import com.mercury.gesturetest.common.Constant;
-import com.mercury.gesturetest.entity.GesturePoint;
+import com.mercury.gesturelock.common.AppUtil;
+import com.mercury.gesturelock.common.Constant;
+import com.mercury.gesturelock.common.StringUtils;
+import com.mercury.gesturelock.entity.GesturePoint;
 
 import java.util.ArrayList;
 import java.util.HashMap;

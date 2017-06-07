@@ -1,13 +1,14 @@
-package com.mercury.gesturetest.widget;
+package com.mercury.gesturelock.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.mercury.gesturetest.R;
+import com.mercury.gesturelock.R;
 
-import static com.mercury.gesturetest.widget.GestureView.Mode.POINT_STATE_NORMAL;
+import static com.mercury.gesturelock.widget.GestureView.Mode.POINT_STATE_NORMAL;
+
 
 /**
  * 创建者:    wang.zhonghao
