@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.Pair;
@@ -22,11 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * 手势密码路径绘制
+ * 创建者:    wang.zhonghao
+ * 创建时间:  2017/6/6
+ * 描述:      ${TODO}
  */
-public class GestureDrawline extends View {
+public class GestureLine extends View {
+
     private int mov_x;
     private int mov_y;
 
@@ -46,9 +47,10 @@ public class GestureDrawline extends View {
     private boolean                                isVerify;
     private String                                 passWord;
     private GestureCallBack                        callBack;
+    private Handler                                mHandler;
 
-    public GestureDrawline(Context context, List<GesturePoint> list,
-                           boolean isVerify, String passWord) {
+    public GestureLine(Context context, List<GesturePoint> list,
+                           boolean isVerify, String passWord, GestureCallBack callBack) {
         super(context);
         screenDispaly = AppUtil.getScreenDispaly(context);
         paint = new Paint(Paint.DITHER_FLAG);// 创建一个画笔
@@ -57,7 +59,7 @@ public class GestureDrawline extends View {
         canvas = new Canvas();
         canvas.setBitmap(bitmap);// 用声明的画笔在位图上画点位
 
-        paint.setStyle(Style.STROKE);// 设置非填充
+        paint.setStyle(Paint.Style.STROKE);// 设置非填充
         paint.setStrokeWidth(3);    //画笔宽度
         paint.setColor(Color.rgb(124, 163, 246));// 设置默认连线颜色
         paint.setAntiAlias(true);// 不显示锯齿
@@ -66,16 +68,13 @@ public class GestureDrawline extends View {
         this.lineList = new ArrayList<>();
 
         initAutoCheckPointMap();
-        //        this.callBack = callBack;
+        this.callBack = callBack;
 
         // 初始化密码缓存
         this.isVerify = isVerify;
         this.passWordSb = new StringBuilder();
         this.passWord = passWord;
-    }
-
-    public void addGestureCallBack(GestureCallBack callBack) {
-        this.callBack = callBack;
+        mHandler = new Handler();
     }
 
     private void initAutoCheckPointMap() {
@@ -370,5 +369,4 @@ public class GestureDrawline extends View {
          */
         void checkedFail();
     }
-
 }
