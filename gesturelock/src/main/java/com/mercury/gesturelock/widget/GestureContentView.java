@@ -40,9 +40,9 @@ public class GestureContentView extends ViewGroup {
      * @param callBack
      * 手势绘制完毕的回调
      */
-    private int[]                          screenDispaly;
+    private int[]             screenDispaly;
     // 将屏幕宽度分成3份
-    private int                            blockWidth;
+    private int               blockWidth;
     // 9个点位的集合
     private List<GestureView> list;
 
@@ -82,9 +82,6 @@ public class GestureContentView extends ViewGroup {
         this.list = new ArrayList<>();
         this.lineList = new ArrayList<>();
 
-        // 添加9个锁位
-        addChild(context);
-
         screenDispaly = AppUtil.getScreenDispaly(context);
         paint = new Paint(Paint.DITHER_FLAG);// 创建一个画笔
         bitmap = Bitmap.createBitmap(screenDispaly[0], screenDispaly[0],
@@ -97,13 +94,14 @@ public class GestureContentView extends ViewGroup {
         paint.setColor(Color.rgb(124, 163, 246));// 设置默认连线颜色
         paint.setAntiAlias(true);// 不显示锯齿
 
-
-
         initAutoCheckPointMap();
 
         // 初始化密码缓存
         //        this.isVerify = isVerify;
         this.passWordSb = new StringBuilder();
+
+        // 添加9个锁位
+        addChild(context);
 
     }
 
@@ -165,8 +163,6 @@ public class GestureContentView extends ViewGroup {
             this.addView(image);
 
         }
-        // 初始化一个可以画线的view
-        //        gestureDrawline = new GestureDrawline(context, list, isVerify, pwd);
 
         // 得到屏幕的宽度
         int width = screenDispaly[0];
@@ -175,15 +171,14 @@ public class GestureContentView extends ViewGroup {
         LayoutParams layoutParams = new LayoutParams(width, height);
         // 设置手势锁的宽度高度--以屏幕的宽为基准
         this.setLayoutParams(layoutParams);
-        //        // 将线路绘制也做同样的操作
-        //        addView(gestureDrawline);
 
     }
 
 
-    /**************************************
-     * 绘制圆点位操作
-     ****************************************/
+    /**
+     * Created by wang.zhonghao on 2017/6/8
+     * descript:  摆放手势锁圆点的位置,已适配屏幕
+     */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int radius = blockWidth / baseNum;
