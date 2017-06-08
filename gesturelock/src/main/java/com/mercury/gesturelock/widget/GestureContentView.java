@@ -28,9 +28,8 @@ import static com.mercury.gesturelock.widget.GestureView.Mode.POINT_STATE_SELECT
  * 手势密码容器类
  */
 public class GestureContentView extends ViewGroup {
-    private GestureDrawline gestureDrawline;
 
-    /************************************************************************
+    /**
      * 包含9个ImageView的容器，初始化
      *
      * @param context
@@ -41,25 +40,25 @@ public class GestureContentView extends ViewGroup {
      * @param callBack
      * 手势绘制完毕的回调
      */
-    private int[]                                            screenDispaly;
+    private int[]                          screenDispaly;
     // 将屏幕宽度分成3份
-    private int                                              blockWidth;
+    private int                            blockWidth;
     // 9个点位的集合
     private List<GestureView> list;
 
     // 是否需要校验密码
-    private boolean                                                                                            isVerify;
-    private Context                                                                                            context;
+    private boolean isVerify;
+    private Context context;
     //校验密码
     /**
      * 构造函数
      */
-    private Paint                                                                                              paint;// 声明画笔
-    private Canvas                                                                                             canvas;// 画布
-    private Bitmap                                                                                             bitmap;// 位图
-    private List<Pair<GestureView, GestureView>> lineList;// 记录画过的线
-    private StringBuilder                                                                                      passWordSb;
-    private GestureCallBack                                                                                    callBack;
+    private Paint                                  paint;// 声明画笔
+    private Canvas                                 canvas;// 画布
+    private Bitmap                                 bitmap;// 位图
+    private List<Pair<GestureView, GestureView>>   lineList;// 记录画过的线
+    private StringBuilder                          passWordSb;
+    private GestureCallBack        callBack;
 
     //    private boolean                                isVerify;
     private String passWord = "12369";
@@ -103,7 +102,7 @@ public class GestureContentView extends ViewGroup {
         initAutoCheckPointMap();
 
         // 初始化密码缓存
-//        this.isVerify = isVerify;
+        //        this.isVerify = isVerify;
         this.passWordSb = new StringBuilder();
 
     }
@@ -133,11 +132,11 @@ public class GestureContentView extends ViewGroup {
     private void addChild(Context context) {
         int radius = blockWidth / baseNum;
         for (int i = 0; i < 9; i++) {
-            GestureView image = new GestureView(context);
-//            ImageView image = new ImageView(context);
-//            image.setBackgroundResource(R.drawable.gesture_normal);
-            this.addView(image);
-//            invalidate();
+            //            GestureView image = new GestureView(context);
+            //            ImageView image = new ImageView(context);
+            //            image.setBackgroundResource(R.drawable.gesture_normal);
+
+            //            invalidate();
             // 第几行---012 0 ，345 1， 678 2--
             int row = i / 3;
             // 第几列---012 012 ， 345 012 ， 678 012
@@ -160,12 +159,14 @@ public class GestureContentView extends ViewGroup {
             //			int rightX = col * blockWidth + blockWidth - blockWidth / baseNum;
             int bottomY = row * (blockWidth - radius) + radius * 2;
             // 构建圆点对象
-            GestureView p = new GestureView(context, leftX, rightX, topY, bottomY, i + 1);
+            GestureView image = new GestureView(context, leftX, rightX, topY, bottomY, i + 1);
             // 添加9个圆点图标
-            this.list.add(p);
+            this.list.add(image);
+            this.addView(image);
+
         }
         // 初始化一个可以画线的view
-//        gestureDrawline = new GestureDrawline(context, list, isVerify, pwd);
+        //        gestureDrawline = new GestureDrawline(context, list, isVerify, pwd);
 
         // 得到屏幕的宽度
         int width = screenDispaly[0];
@@ -174,29 +175,11 @@ public class GestureContentView extends ViewGroup {
         LayoutParams layoutParams = new LayoutParams(width, height);
         // 设置手势锁的宽度高度--以屏幕的宽为基准
         this.setLayoutParams(layoutParams);
-//        // 将线路绘制也做同样的操作
-//        addView(gestureDrawline);
+        //        // 将线路绘制也做同样的操作
+        //        addView(gestureDrawline);
 
     }
 
-
-    /**
-     * 设置手势解锁显示到哪个布局里面
-     */
-
-    public void setParentView(ViewGroup parent) {
-        // 得到屏幕的宽度
-        int width = screenDispaly[0];
-        int height = screenDispaly[1];
-        // 设置手势锁的宽度高度--以屏幕的宽为基准
-        LayoutParams layoutParams = new LayoutParams(width, height);
-        // 设置手势锁的宽度高度--以屏幕的宽为基准
-        this.setLayoutParams(layoutParams);
-        // 将线路绘制也做同样的操作
-        gestureDrawline.setLayoutParams(layoutParams);
-        parent.addView(gestureDrawline);
-        parent.addView(this);
-    }
 
     /**************************************
      * 绘制圆点位操作
@@ -282,13 +265,15 @@ public class GestureContentView extends ViewGroup {
         return null;
     }
 
-    /**********************************************************
-     * 画位图
+
+    /**
+     * Created by wang.zhonghao on 2017/6/8
+     * descript:  更新线段的绘制
      */
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
         canvas.drawBitmap(bitmap, 0, 0, paint);
-
     }
 
     /**
@@ -327,8 +312,6 @@ public class GestureContentView extends ViewGroup {
     private void clearScreenAndDrawList() {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         for (Pair<GestureView, GestureView> pair : lineList) {
-            // drawLine(float startX, float startY, float stopX, float stopY,
-            // Paint paint)
             canvas.drawLine(pair.first.getCenterX(), pair.first.getCenterY(),
                     pair.second.getCenterX(), pair.second.getCenterY(), paint);// 画线
         }
@@ -342,7 +325,7 @@ public class GestureContentView extends ViewGroup {
      * @return
      */
     private GestureView getBetweenCheckPoint(GestureView pointStart,
-                                                                            GestureView pointEnd) {
+                                             GestureView pointEnd) {
         int startNum = pointStart.getNum();
         int endNum = pointEnd.getNum();
         String key;
