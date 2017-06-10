@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,9 +41,9 @@ public class GestureContentView extends ViewGroup {
      * @param callBack
      * 手势绘制完毕的回调
      */
-    private int[]             screenDispaly;
+    private int[]                          screenDispaly;
     // 将屏幕宽度分成3份
-    private int               blockWidth;
+    private int                            blockWidth;
     // 9个点位的集合
     private List<GestureView> list;
 
@@ -84,7 +85,7 @@ public class GestureContentView extends ViewGroup {
 
         screenDispaly = AppUtil.getScreenDispaly(context);
         paint = new Paint(Paint.DITHER_FLAG);// 创建一个画笔
-        bitmap = Bitmap.createBitmap(screenDispaly[0], screenDispaly[0],
+        bitmap = Bitmap.createBitmap(screenDispaly[0], screenDispaly[1],
                 Bitmap.Config.ARGB_8888); // 设置位图的宽高
         canvas = new Canvas();
         canvas.setBitmap(bitmap);// 用声明的画笔在位图上画点位
@@ -130,11 +131,7 @@ public class GestureContentView extends ViewGroup {
     private void addChild(Context context) {
         int radius = blockWidth / baseNum;
         for (int i = 0; i < 9; i++) {
-            //            GestureView image = new GestureView(context);
-            //            ImageView image = new ImageView(context);
-            //            image.setBackgroundResource(R.drawable.gesture_normal);
 
-            //            invalidate();
             // 第几行---012 0 ，345 1， 678 2--
             int row = i / 3;
             // 第几列---012 012 ， 345 012 ， 678 012
@@ -301,6 +298,7 @@ public class GestureContentView extends ViewGroup {
         return null;
     }
 
+
     /**
      * 清掉屏幕上所有的线，然后画出集合里面的线
      */
@@ -376,9 +374,32 @@ public class GestureContentView extends ViewGroup {
                         passWordSb.append(currentPoint.getNum());
                     }
                 }
+                double sqrt = Math.sqrt(Math.pow(event.getX() - currentPoint.getCenterX()
+                        , 2) + Math.pow(event.getY() - currentPoint.getCenterY(), 2));
+                int radius = blockWidth / baseNum;
+                if (sqrt < radius) {
+                    //                    paint.setAlpha(0);
+                    //                    canvas.save();
+                    //                    canvas.saveLayerAlpha(currentPoint.getLeftX(), currentPoint.getTopY(),
+                    //                            currentPoint.getRightX(), currentPoint.getBottomY(), 255);
+                    //                    canvas.restore();
+                } else {
+                    //                    paint.setAlpha(255);
+                    //                    canvas.saveLayerAlpha(0, 0, 1000, 1000, 255);
+                    //                    canvas.restore();
+                }
                 if (pointAt == null || currentPoint.equals(pointAt)) {
                     // 点击移动区域不在圆的区域，或者当前点击的点与当前移动到的点的位置相同
                     // 那么以当前的点中心为起点，以手指移动位置为终点画线
+
+                    //                    Log.e("Mercury", "if");
+
+                    Log.e("left", currentPoint.getLeftX() + "");
+                    Log.e("right", currentPoint.getRightX() + "");
+                    Log.e("top", currentPoint.getTopY() + "");
+                    Log.e("bottom", currentPoint.getBottomY() + "");
+                    Log.e("eventX", event.getX() + "");
+                    Log.e("eventY", event.getY() + "");
                     canvas.drawLine(currentPoint.getCenterX(),
                             currentPoint.getCenterY(), event.getX(), event.getY(),
                             paint);// 画线
@@ -389,6 +410,7 @@ public class GestureContentView extends ViewGroup {
                             currentPoint.getCenterY(), pointAt.getCenterX(),
                             pointAt.getCenterY(), paint);// 画线
                     pointAt.setMode(POINT_STATE_SELECTED);
+                    Log.e("Mercury", "else");
 
                     // 判断是否中间点需要选中
                     //                    GesturePoint betweenPoint = getBetweenCheckPoint

@@ -42,14 +42,14 @@
             android:layout_marginTop="10dip" />
     </LinearLayout>
 
-    <FrameLayout
+    <com.mercury.gesturelock.widget.GestureContentView
         android:id="@+id/gesture_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gesture_tip_layout"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dip" >
-    </FrameLayout>
+    </com.mercury.gesturelock.widget.GestureContentView>
 
     <TextView
         android:id="@+id/text_reset"

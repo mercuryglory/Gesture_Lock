@@ -1,13 +1,13 @@
-package com.mercury.gesturetest.widget;
+package com.mercury.gesturelock.widget;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.mercury.gesturetest.R;
-import com.mercury.gesturetest.common.AppUtil;
-import com.mercury.gesturetest.entity.GesturePoint;
+import com.mercury.gesturelock.R;
+import com.mercury.gesturelock.common.AppUtil;
+import com.mercury.gesturelock.entity.GesturePoint;
 
 import java.util.ArrayList;
 import java.util.List;

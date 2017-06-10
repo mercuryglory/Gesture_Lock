@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mercury.gesturelock.widget.GestureContentView;
-import com.mercury.gesturelock.widget.GestureDrawline;
+import com.mercury.gesturelock.widget.GestureContent;
+import com.mercury.gesturelock.widget.GestureLine;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +32,7 @@ public class GestureVerifyActivity extends AppCompatActivity {
     TextView    tvForgetPwd;
     @Bind(R.id.tv_login)
     TextView    tvLogin;
-    private GestureContentView mGestureContentView;
+    private GestureContent mGestureContentView;
     private int count = 5;
 
     @Override
@@ -46,8 +46,8 @@ public class GestureVerifyActivity extends AppCompatActivity {
 
     private void setUpViews() {
         // 初始化一个显示各个点的viewGroup
-        mGestureContentView = new GestureContentView(this, true, "12589",
-                new GestureDrawline.GestureCallBack() {
+        mGestureContentView = new GestureContent(this, true, "12589",
+                new GestureLine.GestureCallBack() {
 
                     @Override
                     public void onGestureCodeInput(String inputCode) {

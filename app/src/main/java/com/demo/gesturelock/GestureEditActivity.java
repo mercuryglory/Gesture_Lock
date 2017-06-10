@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mercury.gesturelock.widget.GestureContentView;
-import com.mercury.gesturelock.widget.GestureDrawline;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,63 +70,60 @@ public class GestureEditActivity extends AppCompatActivity {
          * 初始化一个显示各个点的viewGroup GestureContentView(Context context, boolean
          * isVerify, String passWord, GestureCallBack callBack)
          */
-        mGestureContentView = new GestureContentView(this, false, "",
-                new GestureDrawline.GestureCallBack() {
-                    @Override
-                    public void onGestureCodeInput(String inputCode) {
-                        // 验证输入的图案密码--如果密码为null。或者密码个数少于4个
-                        if (!isInputPassValidate(inputCode)) {
-                            inputWrong();
-                            return;
-                        }
-                        if (mIsFirstInput) {
-                            // 第一次输入密码--保存第一次输入的密码，再跟第二次比对
-                            mFirstPassword = inputCode;
-                            // 第一次正确的输入完毕后，保持线段1秒钟
-                            mGestureContentView.clearDrawlineState(1000L, true);
-                            tvTip.setText("请再次绘制手势密码");
-                            tvTip.setTextColor(getResources().getColor(R.color.dark_grey));
-                            // 设置可以重新设置密码锁的状态按钮
-                        } else {
-                            if (inputCode.equals(mFirstPassword)) {
-                                mGestureContentView.clearDrawlineState(1000L, true);
-                                ToastUtil.showToast(GestureEditActivity.this, "设置成功!");
+        mGestureContentView.addGestureCallBack(new GestureContentView.GestureCallBack() {
+            @Override
+            public void onGestureCodeInput(String inputCode) {
+                // 验证输入的图案密码--如果密码为null。或者密码个数少于4个
+                if (!isInputPassValidate(inputCode)) {
+                    inputWrong();
+                    return;
+                }
+                if (mIsFirstInput) {
+                    // 第一次输入密码--保存第一次输入的密码，再跟第二次比对
+                    mFirstPassword = inputCode;
+                    // 第一次正确的输入完毕后，保持线段1秒钟
+                    mGestureContentView.clearDrawlineState(1000L, true);
+                    tvTip.setText("请再次绘制手势密码");
+                    tvTip.setTextColor(getResources().getColor(R.color.dark_grey));
+                    // 设置可以重新设置密码锁的状态按钮
+                } else {
+                    if (inputCode.equals(mFirstPassword)) {
+                        mGestureContentView.clearDrawlineState(1000L, true);
+                        ToastUtil.showToast(GestureEditActivity.this, "设置成功!");
 
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        finish();
-                                    }
-                                }, 1000);
-                            } else if (!isInputPassValidate(inputCode)) {
-                                inputWrong();
-                            } else {
-                                tvTip.setText("两次手势密码不一致，请重新绘制");
-                                tvTip.setTextColor(getResources().getColor(R.color.wrong));
-                                // 左右移动动画
-                                Animation shakeAnimation = AnimationUtils
-                                        .loadAnimation(GestureEditActivity.this, R.anim.shake);
-                                tvTip.startAnimation(shakeAnimation);
-                                mGestureContentView.clearDrawlineState(1000L, false);
-                                mIsFirstInput = true;
-                                return;
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
                             }
-                        }
-                        mIsFirstInput = false;
+                        }, 1000);
+                    } else if (!isInputPassValidate(inputCode)) {
+                        inputWrong();
+                    } else {
+                        tvTip.setText("两次手势密码不一致，请重新绘制");
+                        tvTip.setTextColor(getResources().getColor(R.color.wrong));
+                        // 左右移动动画
+                        Animation shakeAnimation = AnimationUtils
+                                .loadAnimation(GestureEditActivity.this, R.anim.shake);
+                        tvTip.startAnimation(shakeAnimation);
+                        mGestureContentView.clearDrawlineState(1000L, false);
+                        mIsFirstInput = true;
+                        return;
                     }
+                }
+                mIsFirstInput = false;
+            }
 
-                    @Override
-                    public void checkedSuccess() {
+            @Override
+            public void checkedSuccess() {
 
-                    }
+            }
 
-                    @Override
-                    public void checkedFail() {
+            @Override
+            public void checkedFail() {
 
-                    }
-                });
-        // 设置手势解锁显示到哪个布局里面
-        mGestureContentView.setParentView(gestureContainer);
+            }
+        });
     }
 
     private void inputWrong() {
