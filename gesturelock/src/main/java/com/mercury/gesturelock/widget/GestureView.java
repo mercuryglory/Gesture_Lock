@@ -116,19 +116,34 @@ public class GestureView extends ImageView {
         super.onDraw(canvas);
         switch (currentStatus) {
             case POINT_STATE_NORMAL:
+                //                mPaint.setStyle(Paint.Style.STROKE);
+                //                mPaint.setColor(mContext.getResources().getColor(R.color.line_color));
+                //                mPaint.setStrokeWidth(2);
+                //                canvas.drawCircle(getCenterX(), getCenterY(), 40, mPaint);
                 this.setBackgroundResource(R.drawable.gesture_normal);
                 break;
             case POINT_STATE_SELECTED:
+                //                mPaint.setStyle(Paint.Style.STROKE);
+                //                mPaint.setColor(mContext.getResources().getColor(R.color.tv_address_default));
+                //                mPaint.setStrokeWidth(2);
+                //                canvas.drawCircle(getCenterX(), getCenterY(), 40, mPaint);
+                //                mPaint.setStyle(Paint.Style.FILL);
+                //                canvas.drawCircle(getCenterX(), getCenterY(), 20, mPaint);
                 this.setBackgroundResource(R.drawable.gesture_pressed);
                 break;
             case POINT_STATE_WRONG:
+                //                mPaint.setStyle(Paint.Style.STROKE);
+                //                mPaint.setColor(mContext.getResources().getColor(R.color.wrong));
+                //                mPaint.setStrokeWidth(2);
+                //                canvas.drawCircle(getCenterX(), getCenterY(), 40, mPaint);
+                //                mPaint.setStyle(Paint.Style.FILL);
+                //                canvas.drawCircle(getCenterX(), getCenterY(), 20, mPaint);
                 this.setBackgroundResource(R.drawable.gesture_wrong);
                 break;
             default:
                 break;
-
         }
-        //        invalidate();
+
     }
 
     public void setMode(Mode mode) {

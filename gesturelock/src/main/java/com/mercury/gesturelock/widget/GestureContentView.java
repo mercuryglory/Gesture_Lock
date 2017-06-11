@@ -106,22 +106,6 @@ public class GestureContentView extends ViewGroup {
 
     }
 
-    //    public GestureContentView(Context context, boolean isVerify,
-    //                              String passWord, GestureDrawline.GestureCallBack callBack) {
-    //        super(context);
-    //        // 获取屏幕宽度
-    //        screenDispaly = AppUtil.getScreenDispaly(context);
-    //        // 获取屏幕宽度的1/3
-    //        blockWidth = screenDispaly[0] / 3;
-    //        this.list = new ArrayList<>();
-    //        this.context = context;
-    //        this.isVerify = isVerify;
-    //        // 添加9个图标
-    //        addChild();
-    //        // 初始化一个可以画线的view
-    //        gestureDrawline = new GestureDrawline(context, list, isVerify,
-    //                passWord, callBack);
-    //    }
 
 
     // 用来计算2个圆心之间的一半距离大小
@@ -149,9 +133,7 @@ public class GestureContentView extends ViewGroup {
                 leftX = screenDispaly[0] / 2 - radius;
                 rightX = screenDispaly[0] / 2 + radius;
             }
-            //			int leftX = col * blockWidth + blockWidth / baseNum;
             int topY = row * (blockWidth - radius);
-            //			int rightX = col * blockWidth + blockWidth - blockWidth / baseNum;
             int bottomY = row * (blockWidth - radius) + radius * 2;
             // 构建圆点对象
             GestureView image = new GestureView(context, leftX, rightX, topY, bottomY, i + 1);
@@ -200,9 +182,7 @@ public class GestureContentView extends ViewGroup {
                 leftX = screenDispaly[0] / 2 - radius;
                 rightX = screenDispaly[0] / 2 + radius;
             }
-            //			int leftX = col * blockWidth + blockWidth / baseNum;
             int topY = row * (blockWidth - radius);
-            //			int rightX = col * blockWidth + blockWidth - blockWidth / baseNum;
             int bottomY = row * (blockWidth - radius) + radius * 2;
             v.layout(leftX, topY, rightX, bottomY);
 
