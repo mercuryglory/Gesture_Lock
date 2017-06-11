@@ -1,64 +1,83 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#48423D" >
+    android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="46dip"
-        android:background="#000000"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        android:layout_alignParentTop="true" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@mipmap/pic_login" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@mipmap/pic_logo" />
+    </RelativeLayout >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="130****1111"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="请绘制手势密码"
+            android:textColor="@color/dark_grey"
+            android:textSize="14sp" />
+
+        <com.mercury.gesturetest.widget.GestureContentView
+            android:id="@+id/gesture"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+
+        <!--<FrameLayout
+            android:id="@+id/gesture_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1" />-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <TextView
+            android:id="@+id/tv_continue"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@string/setup_gesture_code"
-            android:textSize="20sp"
-            android:textColor="#ffffff" />
-    </RelativeLayout>
+            android:padding="10dp"
+            android:text="跳过"
+            android:textColor="@color/main_color"
+            android:textSize="16sp" />
 
-    <LinearLayout
-        android:id="@+id/gesture_tip_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_layout"
-        android:gravity="center"
-        android:orientation="vertical" >
+    </LinearLayout >
 
-
-        <TextView
-            android:id="@+id/text_tip"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/set_gesture_pattern"
-            android:textColor="#F98F12"
-            android:layout_marginTop="10dip" />
-    </LinearLayout>
-
-    <com.mercury.gesturelock.widget.GestureContentView
-        android:id="@+id/gesture_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gesture_tip_layout"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dip" >
-    </com.mercury.gesturelock.widget.GestureContentView>
-
-    <TextView
-        android:id="@+id/text_reset"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/gesture_container"
-        android:layout_marginTop="20dip"
-        android:text="@string/set_gesture_pattern_reason"
-        android:textColor="#816E6A" />
-
-</RelativeLayout>
+</LinearLayout >
