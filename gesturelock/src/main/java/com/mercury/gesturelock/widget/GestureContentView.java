@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,7 +60,6 @@ public class GestureContentView extends ViewGroup {
     private StringBuilder                          passWordSb;
     private GestureCallBack        callBack;
 
-    //    private boolean                                isVerify;
     private String passWord = "12369";
 
 
@@ -92,20 +90,18 @@ public class GestureContentView extends ViewGroup {
 
         paint.setStyle(Paint.Style.STROKE);// 设置非填充
         paint.setStrokeWidth(3);    //画笔宽度
-        paint.setColor(Color.rgb(124, 163, 246));// 设置默认连线颜色
+        paint.setColor(Color.rgb (124, 163, 246));// 设置默认连线颜色
         paint.setAntiAlias(true);// 不显示锯齿
 
         initAutoCheckPointMap();
 
-        // 初始化密码缓存
-        //        this.isVerify = isVerify;
+        // 初始化手势密码操作生成的密码
         this.passWordSb = new StringBuilder();
 
         // 添加9个锁位
         addChild(context);
 
     }
-
 
 
     // 用来计算2个圆心之间的一半距离大小
@@ -216,6 +212,10 @@ public class GestureContentView extends ViewGroup {
         this.callBack = callBack;
     }
 
+    public void setVerify(boolean isVerify) {
+        this.isVerify = isVerify;
+    }
+
     private void initAutoCheckPointMap() {
         autoCheckPointMap = new HashMap<>();
         autoCheckPointMap.put("1,3", getGesturePointByNum(2));
@@ -246,6 +246,7 @@ public class GestureContentView extends ViewGroup {
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
         canvas.drawBitmap(bitmap, 0, 0, paint);
+
     }
 
     /**
@@ -354,32 +355,17 @@ public class GestureContentView extends ViewGroup {
                         passWordSb.append(currentPoint.getNum());
                     }
                 }
-                double sqrt = Math.sqrt(Math.pow(event.getX() - currentPoint.getCenterX()
-                        , 2) + Math.pow(event.getY() - currentPoint.getCenterY(), 2));
-                int radius = blockWidth / baseNum;
-                if (sqrt < radius) {
-                    //                    paint.setAlpha(0);
-                    //                    canvas.save();
-                    //                    canvas.saveLayerAlpha(currentPoint.getLeftX(), currentPoint.getTopY(),
-                    //                            currentPoint.getRightX(), currentPoint.getBottomY(), 255);
-                    //                    canvas.restore();
-                } else {
-                    //                    paint.setAlpha(255);
-                    //                    canvas.saveLayerAlpha(0, 0, 1000, 1000, 255);
-                    //                    canvas.restore();
-                }
+
                 if (pointAt == null || currentPoint.equals(pointAt)) {
                     // 点击移动区域不在圆的区域，或者当前点击的点与当前移动到的点的位置相同
                     // 那么以当前的点中心为起点，以手指移动位置为终点画线
 
-                    //                    Log.e("Mercury", "if");
-
-                    Log.e("left", currentPoint.getLeftX() + "");
-                    Log.e("right", currentPoint.getRightX() + "");
-                    Log.e("top", currentPoint.getTopY() + "");
-                    Log.e("bottom", currentPoint.getBottomY() + "");
-                    Log.e("eventX", event.getX() + "");
-                    Log.e("eventY", event.getY() + "");
+                    //                    Log.e("left", currentPoint.getLeftX() + "");
+                    //                    Log.e("right", currentPoint.getRightX() + "");
+                    //                    Log.e("top", currentPoint.getTopY() + "");
+                    //                    Log.e("bottom", currentPoint.getBottomY() + "");
+                    //                    Log.e("eventX", event.getX() + "");
+                    //                    Log.e("eventY", event.getY() + "");
                     canvas.drawLine(currentPoint.getCenterX(),
                             currentPoint.getCenterY(), event.getX(), event.getY(),
                             paint);// 画线
@@ -390,30 +376,7 @@ public class GestureContentView extends ViewGroup {
                             currentPoint.getCenterY(), pointAt.getCenterX(),
                             pointAt.getCenterY(), paint);// 画线
                     pointAt.setMode(POINT_STATE_SELECTED);
-                    Log.e("Mercury", "else");
 
-                    // 判断是否中间点需要选中
-                    //                    GesturePoint betweenPoint = getBetweenCheckPoint
-                    // (currentPoint,
-                    //                            pointAt);
-                    //                    if (betweenPoint != null
-                    //                            && Constants.POINT_STATE_SELECTED != betweenPoint
-                    //                            .getPointState()) {
-                    //                        // 存在中间点并且没有被选中
-                    //                        Pair<GesturePoint, GesturePoint> pair1 = new Pair<>(
-                    //                                currentPoint, betweenPoint);
-                    //                        lineList.add(pair1);
-                    //                        passWordSb.append(betweenPoint.getNum());
-                    //                        Pair<GesturePoint, GesturePoint> pair2 = new Pair<>(
-                    //                                betweenPoint, pointAt);
-                    //                        lineList.add(pair2);
-                    //                        passWordSb.append(pointAt.getNum());
-                    //                        // 设置中间点选中
-                    //                        betweenPoint.setPointState(Constants
-                    // .POINT_STATE_SELECTED);
-                    //                        // 赋值当前的point;
-                    //                        currentPoint = pointAt;
-                    //                    } else {
                     if (!StringUtils.hasSame(passWordSb.toString(), pointAt.getNum())) {
                         Pair<GestureView, GestureView> pair = new Pair<>(
                                 currentPoint, pointAt);
@@ -423,8 +386,6 @@ public class GestureContentView extends ViewGroup {
                         currentPoint = pointAt;
                     }
 
-
-                    //                    }
                 }
                 invalidate();
                 break;
@@ -508,8 +469,8 @@ public class GestureContentView extends ViewGroup {
             lineList.clear();
             // 重新绘制界面
             clearScreenAndDrawList();
-            for (GestureView p : list) {
-                p.setMode(GestureView.Mode.POINT_STATE_NORMAL);
+            for (GestureView view : list) {
+                view.setMode(GestureView.Mode.POINT_STATE_NORMAL);
             }
             invalidate();
             isDrawEnable = true;

@@ -13,7 +13,7 @@ import static com.mercury.gesturelock.widget.GestureView.Mode.POINT_STATE_NORMAL
 /**
  * 创建者:    wang.zhonghao
  * 创建时间:  2017/6/7
- * 描述:      ${TODO}
+ * 描述:      手势密码 锁位
  */
 public class GestureView extends ImageView {
 
@@ -148,8 +148,7 @@ public class GestureView extends ImageView {
 
     public void setMode(Mode mode) {
         currentStatus = mode;
-        postInvalidate();
-//        invalidate();
+        invalidate();
     }
 
 }
