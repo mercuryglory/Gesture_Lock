@@ -1,6 +1,7 @@
 package com.mercury.gesturelock.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mercury.gesturelock.R;
 import com.mercury.gesturelock.common.AppUtil;
 import com.mercury.gesturelock.common.StringUtils;
 
@@ -25,20 +27,15 @@ import static com.mercury.gesturelock.widget.GestureView.Mode.POINT_STATE_SELECT
 
 
 /**
- * 手势密码容器类
+ * 创建者:    wang.zhonghao
+ * 创建时间:  2017/6/7
+ * 描述:     手势密码 真正在布局中使用的自定义控件
  */
 public class GestureContentView extends ViewGroup {
 
     /**
      * 包含9个ImageView的容器，初始化
      *
-     * @param context
-     * @param isVerify
-     * 是否为校验手势密码
-     * @param passWord
-     * 用户传入密码
-     * @param callBack
-     * 手势绘制完毕的回调
      */
     private int[]                          screenDispaly;
     // 将屏幕宽度分成3份
@@ -48,7 +45,6 @@ public class GestureContentView extends ViewGroup {
 
     // 是否需要校验密码
     private boolean isVerify;
-    private Context context;
     //校验密码
     /**
      * 构造函数
@@ -60,6 +56,8 @@ public class GestureContentView extends ViewGroup {
     private StringBuilder                          passWordSb;
     private GestureCallBack        callBack;
 
+    private int normalLineColor;
+    private int wrongLineColor;
     private String passWord = "12369";
 
 
@@ -73,13 +71,16 @@ public class GestureContentView extends ViewGroup {
 
     public GestureContentView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
         // 获取屏幕宽度
         screenDispaly = AppUtil.getScreenDispaly(context);
         // 获取屏幕宽度的1/3
         blockWidth = screenDispaly[0] / 3;
         this.list = new ArrayList<>();
         this.lineList = new ArrayList<>();
+        initAutoCheckPointMap();
+
+        // 初始化手势密码操作生成的密码
+        this.passWordSb = new StringBuilder();
 
         screenDispaly = AppUtil.getScreenDispaly(context);
         paint = new Paint(Paint.DITHER_FLAG);// 创建一个画笔
@@ -88,15 +89,16 @@ public class GestureContentView extends ViewGroup {
         canvas = new Canvas();
         canvas.setBitmap(bitmap);// 用声明的画笔在位图上画点位
 
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GestureContentView,
+                defStyleAttr, 0);
+        normalLineColor = a.getColor(R.styleable.GestureContentView_normalLineColor, Color.rgb(124, 163, 246));
+        wrongLineColor = a.getColor(R.styleable.GestureContentView_wrongLineColor, Color.rgb(124, 163, 246));
+        int width = a.getInt(R.styleable.GestureContentView_lineWidth, 3);
+
         paint.setStyle(Paint.Style.STROKE);// 设置非填充
-        paint.setStrokeWidth(3);    //画笔宽度
-        paint.setColor(Color.rgb (124, 163, 246));// 设置默认连线颜色
+        paint.setColor(normalLineColor);// 设置默认连线颜色
+        paint.setStrokeWidth(width);    //画笔宽度
         paint.setAntiAlias(true);// 不显示锯齿
-
-        initAutoCheckPointMap();
-
-        // 初始化手势密码操作生成的密码
-        this.passWordSb = new StringBuilder();
 
         // 添加9个锁位
         addChild(context);
@@ -216,6 +218,10 @@ public class GestureContentView extends ViewGroup {
         this.isVerify = isVerify;
     }
 
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
     private void initAutoCheckPointMap() {
         autoCheckPointMap = new HashMap<>();
         autoCheckPointMap.put("1,3", getGesturePointByNum(2));
@@ -322,7 +328,7 @@ public class GestureContentView extends ViewGroup {
             // 如果圆点图片呈现底片--也就是二次绘制错误，在没有清除绘制的线段的情况下，不再允许绘制线条
             return true;
         }
-        paint.setColor(Color.rgb(124, 163, 246));// 设置默认连线颜色
+        paint.setColor(normalLineColor);// 设置默认连线颜色
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // 鼠标按下后，获取手指点位的xy坐标
@@ -423,7 +429,7 @@ public class GestureContentView extends ViewGroup {
     private void drawEndPathTip(boolean isCorrect) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         if (isCorrect) {
-            paint.setColor(Color.rgb(124, 163, 246));   //设置正确线路颜色
+            paint.setColor(normalLineColor);   //设置正确线路颜色
             for (Pair<GestureView, GestureView> pair : lineList) {
                 pair.first.setMode(POINT_STATE_SELECTED);
                 pair.second.setMode(POINT_STATE_SELECTED);
@@ -431,7 +437,7 @@ public class GestureContentView extends ViewGroup {
                         pair.second.getCenterX(), pair.second.getCenterY(), paint);// 画线
             }
         } else {
-            paint.setColor(Color.rgb(255, 166, 14));// 设置错误线路颜色
+            paint.setColor(wrongLineColor);// 设置错误线路颜色
             for (Pair<GestureView, GestureView> pair : lineList) {
                 pair.first.setMode(GestureView.Mode.POINT_STATE_WRONG);
                 pair.second.setMode(GestureView.Mode.POINT_STATE_WRONG);
@@ -439,7 +445,6 @@ public class GestureContentView extends ViewGroup {
                         pair.second.getCenterX(), pair.second.getCenterY(), paint);// 画线
             }
         }
-
 
         invalidate();
     }
@@ -494,5 +499,6 @@ public class GestureContentView extends ViewGroup {
          */
         void checkedFail();
     }
+
 
 }
