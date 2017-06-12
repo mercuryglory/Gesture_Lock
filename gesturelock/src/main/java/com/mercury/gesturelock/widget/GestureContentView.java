@@ -92,7 +92,7 @@ public class GestureContentView extends ViewGroup {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GestureContentView,
                 defStyleAttr, 0);
         normalLineColor = a.getColor(R.styleable.GestureContentView_normalLineColor, Color.rgb(124, 163, 246));
-        wrongLineColor = a.getColor(R.styleable.GestureContentView_wrongLineColor, Color.rgb(124, 163, 246));
+        wrongLineColor = a.getColor(R.styleable.GestureContentView_wrongLineColor, Color.rgb(255, 166, 14));
         int width = a.getInt(R.styleable.GestureContentView_lineWidth, 3);
 
         paint.setStyle(Paint.Style.STROKE);// 设置非填充

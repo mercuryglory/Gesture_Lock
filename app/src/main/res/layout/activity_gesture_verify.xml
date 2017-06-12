@@ -46,13 +46,21 @@
             android:textColor="@color/dark_grey"
             android:textSize="14sp" />
 
-        <FrameLayout
+        <com.mercury.gesturelock.widget.GestureContentView
+            android:id="@+id/gesture"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+
+       <!-- <FrameLayout
             android:id="@+id/gesture_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_weight="5 " />
+            android:layout_weight="5 " />-->
 
         <RelativeLayout
             android:layout_width="match_parent"

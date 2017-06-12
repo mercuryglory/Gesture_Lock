@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mercury.gesturelock.widget.GestureContentView;
@@ -27,8 +26,8 @@ public class GestureEditActivity extends AppCompatActivity {
     TextView    tvPhone;
     @Bind(R.id.tv_tip)
     TextView    tvTip;
-    @Bind(R.id.gesture_container)
-    FrameLayout gestureContainer;
+    @Bind(R.id.gesture)
+    GestureContentView gestureContainer;
     @Bind(R.id.tv_continue)
     TextView    tvContinue;
 
@@ -36,7 +35,6 @@ public class GestureEditActivity extends AppCompatActivity {
     private boolean mIsFirstInput  = true;
     // 初次绘制完毕密码锁，生成的密码
     private String  mFirstPassword = null;
-    private GestureContentView mGestureContentView;
     private Handler            mHandler;
 
     @Override
@@ -66,11 +64,7 @@ public class GestureEditActivity extends AppCompatActivity {
     private void setUpViews() {
         // 2次绘制手势密码不正确的提示语
         // 手势密码绘制区域
-        /**
-         * 初始化一个显示各个点的viewGroup GestureContentView(Context context, boolean
-         * isVerify, String passWord, GestureCallBack callBack)
-         */
-        mGestureContentView.addGestureCallBack(new GestureContentView.GestureCallBack() {
+        gestureContainer.addGestureCallBack(new GestureContentView.GestureCallBack() {
             @Override
             public void onGestureCodeInput(String inputCode) {
                 // 验证输入的图案密码--如果密码为null。或者密码个数少于4个
@@ -82,13 +76,13 @@ public class GestureEditActivity extends AppCompatActivity {
                     // 第一次输入密码--保存第一次输入的密码，再跟第二次比对
                     mFirstPassword = inputCode;
                     // 第一次正确的输入完毕后，保持线段1秒钟
-                    mGestureContentView.clearDrawlineState(1000L, true);
+                    gestureContainer.clearDrawlineState(1000L, true);
                     tvTip.setText("请再次绘制手势密码");
                     tvTip.setTextColor(getResources().getColor(R.color.dark_grey));
                     // 设置可以重新设置密码锁的状态按钮
                 } else {
                     if (inputCode.equals(mFirstPassword)) {
-                        mGestureContentView.clearDrawlineState(1000L, true);
+                        gestureContainer.clearDrawlineState(1000L, true);
                         ToastUtil.showToast(GestureEditActivity.this, "设置成功!");
 
                         mHandler.postDelayed(new Runnable() {
@@ -106,7 +100,7 @@ public class GestureEditActivity extends AppCompatActivity {
                         Animation shakeAnimation = AnimationUtils
                                 .loadAnimation(GestureEditActivity.this, R.anim.shake);
                         tvTip.startAnimation(shakeAnimation);
-                        mGestureContentView.clearDrawlineState(1000L, false);
+                        gestureContainer.clearDrawlineState(1000L, false);
                         mIsFirstInput = true;
                         return;
                     }
@@ -130,7 +124,7 @@ public class GestureEditActivity extends AppCompatActivity {
         tvTip.setText("至少须4个以上连接点");
         tvTip.setTextColor(getResources().getColor(R.color.wrong));
         // 1秒后清除画的线段
-        mGestureContentView.clearDrawlineState(1000L, false);
+        gestureContainer.clearDrawlineState(1000L, false);
         mIsFirstInput = true;
         return;
     }

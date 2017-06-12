@@ -46,7 +46,7 @@
             android:textColor="@color/dark_grey"
             android:textSize="14sp" />
 
-        <com.mercury.gesturetest.widget.GestureContentView
+        <com.mercury.gesturelock.widget.GestureContentView
             android:id="@+id/gesture"
             android:layout_width="match_parent"
             android:layout_height="0dp"
