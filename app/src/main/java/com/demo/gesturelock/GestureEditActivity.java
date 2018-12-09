@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.mercury.gesturelock.widget.GestureContentView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -22,13 +22,13 @@ import butterknife.OnClick;
  */
 public class GestureEditActivity extends AppCompatActivity {
 
-    @Bind(R.id.tv_phone)
+    @BindView(R.id.tv_phone)
     TextView    tvPhone;
-    @Bind(R.id.tv_tip)
+    @BindView(R.id.tv_tip)
     TextView    tvTip;
-    @Bind(R.id.gesture)
+    @BindView(R.id.gesture)
     GestureContentView gestureContainer;
-    @Bind(R.id.tv_continue)
+    @BindView(R.id.tv_continue)
     TextView    tvContinue;
 
     // 是否是第一次绘制密码锁

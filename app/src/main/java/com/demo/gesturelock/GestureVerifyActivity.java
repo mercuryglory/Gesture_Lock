@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.mercury.gesturelock.widget.GestureContentView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -20,15 +20,15 @@ import butterknife.OnClick;
  */
 public class GestureVerifyActivity extends AppCompatActivity {
 
-    @Bind(R.id.tv_phone)
+    @BindView(R.id.tv_phone)
     TextView           tvPhone;
-    @Bind(R.id.tv_tip)
+    @BindView(R.id.tv_tip)
     TextView           tvTip;
-    @Bind(R.id.gesture)
+    @BindView(R.id.gesture)
     GestureContentView gestureContainer;
-    @Bind(R.id.tv_forgetPwd)
+    @BindView(R.id.tv_forgetPwd)
     TextView           tvForgetPwd;
-    @Bind(R.id.tv_login)
+    @BindView(R.id.tv_login)
     TextView           tvLogin;
 
     private int count = 5;
